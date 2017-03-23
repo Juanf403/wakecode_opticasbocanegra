@@ -1,0 +1,20 @@
+<?php
+
+include '../../db.php';
+
+$id 	= mysql_real_escape_string($_GET['q']);
+
+$query 	= mysql_query("SELECT * FROM usuarios WHERE nombre LIKE '%".$id."%' ORDER BY nombre ASC") or die(mysql_error());
+
+#echo '<option></option>';
+while($q = mysql_fetch_object($query)){
+	#echo '<option value="'.$q->idramos.'">'.$q->numramo.' - '.$q->descripcion.'</option>';
+
+	$row['id'] 		= (int)$q->idusuarios;
+	$row['text']	= htmlentities(stripslashes($q->nombre));
+	$row_set[] 		= $row;
+
+}
+echo json_encode($row_set);
+
+?>
